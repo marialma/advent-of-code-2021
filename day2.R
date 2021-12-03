@@ -2,7 +2,8 @@
 
 library(tidyverse)
 
-input <- read.csv("day2_input", header = FALSE)
+input <- read.delim("day2_input", sep = " ", header = FALSE) 
+
 input %>% rename(dir = V1, 
                  num = V2) -> input
 horizontal <- input %>% filter(dir == "forward")
