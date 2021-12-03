@@ -16,14 +16,24 @@ advent_code %>%
 
 
 advent_code %>% 
-  mutate(lag1 = lag(advent_code_list),
-         lag2 = lag(advent_code_list, 2)) %>% 
-  mutate(sliding = advent_code_list + lag1 + lag2) %>% 
+  rename(nums = V1) %>%
+  mutate(lag1 = lag(nums),
+         lag2 = lag(nums, 2)) %>% 
+  mutate(sliding = nums + lag1 + lag2) %>% 
   filter(!is.na(sliding)) %>% 
   mutate(change = sliding - lag(sliding)) %>% 
   mutate(inc = case_when(change > 0 ~ "increased") ) %>% 
   filter(inc == "increased") %>% nrow()
 # there's definitely a more efficient way to do this lol
+
+# more efficient way:
+advent_code %>%
+  rename(nums = V1) %>%
+  mutate(sliding = nums + lag(nums) + lag(nums,2)) %>% 
+  filter(!is.na(sliding)) %>% 
+  filter(sliding > lag(sliding)) %>% nrow()
+
+
 
 
 # base R solution
