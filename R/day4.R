@@ -1,4 +1,4 @@
-library(tidyverse)
+
 advent <- readLines(con = "data/day4_input")
 
 # Text parsing time
