@@ -1,5 +1,5 @@
 library(tidyverse)
-input <- readLines("day3_input")
+input <- readLines("data/day3_input")
 
 ac <- as.data.frame(input)
 bit_length <- nchar(ac[1,1]) 
@@ -19,7 +19,7 @@ advent_3 <- function(ac, func) {
            sep = c(1:bit_length)) %>%
   mutate_all(as.numeric) %>% 
   apply(2, func) %>%
-  as.data.frame %>%
+  as.data.frame %>% 
   rename(bits = 1) %>%
   mutate(power = bit_length:1, 
          power = power-1,

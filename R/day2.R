@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-input <- read.delim("day2_input", sep = " ", header = FALSE) 
+input <- read.delim("data/day2_input", sep = " ", header = FALSE) 
 
 input %>% rename(dir = V1, 
                  num = V2) -> input

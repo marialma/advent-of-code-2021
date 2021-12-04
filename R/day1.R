@@ -1,6 +1,6 @@
 #advent of code day 1
 library(tidyverse)
-advent_code <- read.table("day1_input")
+advent_code <- read.table("data/day1_input")
 
 
 advent_code %>% 
