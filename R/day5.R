@@ -1,5 +1,4 @@
 file <- readLines("data/day5_input")
-
 advent <- as.data.frame(file)
 
 advent <- advent %>% 
@@ -24,13 +23,12 @@ temp_matrix_master <- matrix(data = c(0), nrow=max(c(advent$y1, advent$y2)), nco
 
 temp_matrix <- temp_matrix_master
 
-rn <- 1
 for(line in 1:nrow(part_1)){
   
-  part_1[rn,1] -> startx
-  part_1[rn,2] -> starty
-  part_1[rn,3] -> endx
-  part_1[rn,4] -> endy
+  part_1[line,1] -> startx
+  part_1[line,2] -> starty
+  part_1[line,3] -> endx
+  part_1[line,4] -> endy
   
   endy - starty -> y_dist
   endx - startx -> x_dist
@@ -56,37 +54,31 @@ for(line in 1:nrow(part_1)){
     
   } else {print("damn you fucked up") 
     break}
-  
-  rn_fill_matrix <- 1
-  
-  for (row in 1:nrow(coords)) {
-    y_coord <- coords[[rn_fill_matrix,1]]  
-    x_coord <- coords[[rn_fill_matrix,2]]
+
+  for (rw in 1:nrow(coords)) {
+    y_coord <- coords[[rw,1]]  
+    x_coord <- coords[[rw,2]]
     
     temp_matrix[x_coord, y_coord] <- 1
-    
-    rn_fill_matrix <- rn_fill_matrix + 1
   }
   p1_matrix <- p1_matrix + temp_matrix
   temp_matrix <- temp_matrix_master
-  rn <- rn + 1
 }
 
 answer_p1 <- which(p1_matrix > 1, arr.ind=TRUE)
 
 part_2 <- advent %>% filter(!rowname %in% not_diag_lines) %>% 
-  mutate_all(as.numeric) %>% 
   select(-rowname)
 
 p2_matrix <- matrix(data = c(0), nrow=max(c(advent$y1, advent$y2)), ncol=max(c(advent$x1, advent$x2)))
 temp_matrix2 <- temp_matrix_master
-rn <- 1
+
 for(line in 1:nrow(part_2)){
   
-  part_2[rn,1] -> startx
-  part_2[rn,2] -> starty
-  part_2[rn,3] -> endx
-  part_2[rn,4] -> endy
+  part_2[line,1] -> startx
+  part_2[line,2] -> starty
+  part_2[line,3] -> endx
+  part_2[line,4] -> endy
   
   x_list <- c(startx, endx)
   y_list <- c(starty, endy)
@@ -97,17 +89,14 @@ for(line in 1:nrow(part_2)){
   
   rn_fill_matrix <- 1
   
-  for (row in 1:nrow(coords)) {
-    y_coord <- coords[[rn_fill_matrix,1]]  
-    x_coord <- coords[[rn_fill_matrix,2]]
+  for (rw in 1:nrow(coords)) {
+    y_coord <- coords[[rw,1]]  
+    x_coord <- coords[[rw,2]]
     
     temp_matrix2[x_coord, y_coord] <- 1
-    
-    rn_fill_matrix <- rn_fill_matrix + 1
   }
   p2_matrix <- p2_matrix + temp_matrix2
   temp_matrix2 <- temp_matrix_master
-  rn <- rn + 1
 }
 ans <- p1_matrix + p2_matrix
 final_answer <- which(ans > 1, arr.ind=TRUE)
