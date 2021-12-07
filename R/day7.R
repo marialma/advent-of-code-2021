@@ -7,7 +7,7 @@ form <- function(advent, x) {
 #start from average
 
 start <- floor(mean(advent))
-old_x <- 700
+old_x <- start
 current_answer <- form(advent, old_x)
 print(current_answer)
 trace <- c()
