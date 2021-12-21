@@ -20,9 +20,10 @@ input_chars <- strsplit(advent$input, " ")
 input_char_list <- lapply(input_chars, nchar)
 
 
+total = 0
+
 
 for (index in 1:length(input_chars)) {
-index <- 1  
   inp_c <- input_chars[[index]]
   inp <- strsplit(inp_c, "")
   
@@ -47,7 +48,6 @@ index <- 1
     temp <- (top_left_and_mid %in% segment)
     if(sum(temp, na.rm = TRUE) == 2) {
       five <- segment
-      print(five)
     } else {
       temp2 <- (one %in% segment)
       if(sum(temp2, na.rm = TRUE) == 2){
@@ -62,7 +62,6 @@ index <- 1
     temp <- (one %in% segment)
     if(sum(temp, na.rm = TRUE) == 1) {
       six <- segment
-      print("six")
     } 
     else {
       if(length(setdiff(segment, three)) == 2){
@@ -74,16 +73,16 @@ index <- 1
     }
   }
   
-  one <- str_flatten(one, "")
-  two <- str_flatten(two, "")
-  three <- str_flatten(three, "")
-  four <- str_flatten(four, "")
-  five <- str_flatten(five, "")
-  six <- str_flatten(six, "")
-  seven <- str_flatten(seven, "")
-  eight <- str_flatten(eight, "")
-  nine <- str_flatten(nine, "")
-  zero <- str_flatten(zero, "")
+  one <- str_flatten(sort(one), "")
+  two <- str_flatten(sort(two), "")
+  three <- str_flatten(sort(three), "")
+  four <- str_flatten(sort(four), "")
+  five <- str_flatten(sort(five), "")
+  six <- str_flatten(sort(six), "")
+  seven <- str_flatten(sort(seven), "")
+  eight <- str_flatten(sort(eight), "")
+  nine <- str_flatten(sort(nine), "")
+  zero <- str_flatten(sort(zero), "")
   
   dict_list <- c(one,two,three,four,five,six,seven,eight,nine,zero)
   key_list <- c(1,2,3,4,5,6,7,8,9,0)
@@ -91,20 +90,18 @@ index <- 1
   dictionary <- data.frame(key_list, dict_list)
   
   
-  out_list <- output_chars[[index]] %>%  strsplit("") 
-  out_list <- out_list[order(sapply(out_list,'[', 1))]
+  out_list <- output_chars[[index]] %>%  strsplit("")  
+  for(num in 1:length(out_list)) {
+    out_list[[num]] <- str_flatten(sort(out_list[[num]]))
+  }
   
+  output_list <- data.frame(output = unlist(out_list))
+  output_list %>% left_join(dictionary, by = c("output" = "dict_list")) -> decoded
   
-  output_list <- data.frame(output = output_chars[[index]])
-  output_list %>% left_join(dictionary, by = c("output" = "dict_list")) %>% View
+  decoded$key_list %>% str_flatten() %>% as.numeric -> decoded_sum
+  
+  total = total + decoded_sum
 
   
   }
 
-
-
-
-}
-
-}
-}
