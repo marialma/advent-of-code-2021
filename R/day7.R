@@ -1,5 +1,6 @@
 advent <- scan("data/day7_input", sep=",")
 print(sum(abs(advent - median(advent))))
+
 form <- function(advent, x) { 
   sum((abs(advent - x) * (abs(advent - x) + 1)) / 2)
 }
@@ -20,7 +21,6 @@ for (iter in 1:1000) {
   if(new_answer < current_answer) {
     current_answer <- new_answer
     old_x <- new_x} else {next}
-
 }
 print(current_answer)
 
@@ -31,7 +31,3 @@ print(current_answer)
 steps <- seq(1:length(trace))
 trace_plot <- data.frame(steps, trace)
 ggplot() + geom_line(aes(x=steps, y = trace))
-
-
-
-
